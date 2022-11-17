@@ -1,8 +1,9 @@
-package util
+package txer
 
 import (
 	"context"
 	"green.env.com/auth/config"
+	"green.env.com/auth/util"
 	"strings"
 
 	"gorm.io/gorm"
@@ -49,7 +50,7 @@ func TxEnd(ctx context.Context, txFunc func(context.Context) error) (context.Con
 					err = tx.Commit().Error // if Commit returns error update err with commit err
 					if err != nil {
 						tx.Logger.Error(ctx, "fail commit transaction", err)
-						err = ErrCommitTransaction(err)
+						err = util.ErrCommitTransaction(err)
 					}
 				}
 			}()

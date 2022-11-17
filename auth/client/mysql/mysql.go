@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"green.env.com/auth/config"
 	"green.env.com/auth/util"
+	"green.env.com/txer"
 	"time"
 
 	"gorm.io/driver/mysql"
@@ -52,8 +53,8 @@ func init() {
 }
 
 func GetClient(ctx context.Context) *gorm.DB {
-	if util.IsEnableTx(ctx) {
-		return util.GetTx(ctx)
+	if txer.IsEnableTx(ctx) {
+		return txer.GetTx(ctx)
 	}
 
 	return db.Session(&gorm.Session{})
